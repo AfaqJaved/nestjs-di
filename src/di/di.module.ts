@@ -6,8 +6,9 @@
 import { Inject, Module } from "@nestjs/common";
 import { PersonProvider } from "./person.provider";
 import { LoggingProvider } from "./providers/logging.provider";
+import { dbProvider } from "./providers/pg.provider";
 
-const constants = {
+export const constants = {
   db_username : "notezz",
   db_password : "admin"
 }
@@ -19,15 +20,21 @@ const constants = {
   providers: [
     PersonProvider ,
     LoggingProvider ,
-    {useValue : constants , provide : "APP_CONSTANTS"}
+    {useValue : constants , provide : "APP_CONSTANTS"},
+    dbProvider
   ],
   exports : [
     PersonProvider,
     LoggingProvider,
-    {useValue : constants , provide : "APP_CONSTANTS"}
+    {useValue : constants , provide : "APP_CONSTANTS"},
+    dbProvider
   ]
 })
 export class DIModule {
+
+
+
+
   constructor(
     private readonly person : PersonProvider,
     private readonly log : LoggingProvider,
@@ -35,10 +42,8 @@ export class DIModule {
 
   ) {
 
-    console.log(constants.db_username);
-    console.log(constants.db_password);
-    // log.loggSuccess("Success Message");
-    // log.loggError("Error Message");
-    // log.loggInfo("Info Message");
+    this.log.loggSuccess("Success Message");
+    this.log.loggError("Error Message");
+    this.log.loggInfo("Info Message");
   }
 }
