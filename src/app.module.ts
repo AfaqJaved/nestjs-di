@@ -6,6 +6,7 @@ import { PersonProvider } from "./di/person.provider";
 import { LoggingProvider } from "./di/providers/logging.provider";
 import { Pool } from "pg";
 import { PG_PROVIDER } from "./di/providers/pg.provider";
+import { UsersModule } from "./users/users.module";
 
 
 //Standard Providers
@@ -16,8 +17,13 @@ import { PG_PROVIDER } from "./di/providers/pg.provider";
 // object
 // unique id string
 
+//useclass
+// differen conditions diffrent provider
+
+
+
 @Module({
-  imports: [DIModule],
+  imports: [DIModule , UsersModule],
   controllers: [],
   providers: [],
 })
